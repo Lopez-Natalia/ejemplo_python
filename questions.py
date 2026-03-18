@@ -36,7 +36,6 @@ categorias = {
             "buzo",
         ]
 }
-
 #word = random.choice(words)
 guessed = []
 attempts = 6
