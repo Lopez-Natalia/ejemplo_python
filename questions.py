@@ -1,21 +1,56 @@
 import random
-words = [
-    "python",
-    "programa",
-    "variable",
-    "funcion",
-    "bucle",
-    "cadena",
-    "entero",
-    "lista",
-]
-word = random.choice(words)
+categorias = {
+        "words": [
+            "python",
+            "programa",
+            "variable",
+            "funcion",
+            "bucle",
+            "cadena",
+            "entero",
+            "lista",
+        ],
+
+        "frutas": [
+            "manzana",
+            "pera",
+            "banana",
+            "sandia",
+            "uva",
+            "frutilla",
+        ],
+
+        "libreria": [
+            "lapiz",
+            "cartuchera",
+            "cuaderno",
+            "lapicera",
+            "resaltador",
+        ],
+
+        "ropa": [
+            "remera",
+            "pantalon",
+            "pollera",
+            "musculosa",
+            "buzo",
+        ]
+}
+
+#word = random.choice(words)
 guessed = []
 attempts = 6
 puntaje = 6
 
 print("¡Bienvenido al Ahorcado!")
 print()
+
+print ("Categorias disponibles: ")
+for cat in categorias.keys():
+    print (f"{cat}")
+eleccion = input ("Escriba la categoria: ")
+
+word = random.choice(categorias[eleccion])
 
 while attempts > 0:
     # Mostrar progreso: letras adivinadas y guiones para las que faltan
@@ -29,7 +64,7 @@ while attempts > 0:
     # Verificar si el jugador ya adivinó la palabra completa
     if "_" not in progress:
         print("¡Ganaste!")
-        print ("Puntaje", puntaje)
+        print (f"Puntaje: {puntaje}")
         break
     
     print(f"Intentos restantes: {attempts}")
@@ -38,7 +73,7 @@ while attempts > 0:
     letter = input("Ingresá una letra: ")
 
     if (len(letter) != 1) or not (letter>= 'a' and letter<= 'z'):
-        print('Entrada no valida')
+        print("Entrada no valida")
         continue
 
     if letter in guessed:
