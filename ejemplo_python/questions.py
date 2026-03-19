@@ -1,44 +1,105 @@
 import random
-words = [
-"python",
-"programa",
-"variable",
-"funcion",
-"bucle",
-"cadena",
-"entero",
-"lista",
-]
-word = random.choice(words)
-guessed = []
-attempts = 6
-print("¡Bienvenido al Ahorcado!")
-print()
-while attempts > 0:
-# Mostrar progreso: letras adivinadas y guiones para las que faltan
-progress = ""
-for letter in word:
-if letter in guessed:
-progress += letter + " "
-else:
-progress += "_ "
-print(progress)
-# Verificar si el jugador ya adivinó la palabra completa
-if "_" not in progress:
-print("¡Ganaste!")
-break
-print(f"Intentos restantes: {attempts}")
-print(f"Letras usadas: {', '.join(guessed)}")
-letter = input("Ingresá una letra: ")
-if letter in guessed:
-print("Ya usaste esa letra.")
-elif letter in word:
-guessed.append(letter)
-print("¡Bien! Esa letra está en la palabra.")
-else:
-guessed.append(letter)
-attempts -= 1
-print("Esa letra no está en la palabra.")
-print()
-else:
-print(f"¡Perdiste! La palabra era: {word}")
+categorias = {
+        "words": [
+            "python",
+            "programa",
+            "variable",
+            "funcion",
+            "bucle",
+            "cadena",
+            "entero",
+            "lista",
+        ],
+
+        "frutas": [
+            "manzana",
+            "pera",
+            "banana",
+            "sandia",
+            "uva",
+            "frutilla",
+        ],
+
+        "libreria": [
+            "lapiz",
+            "cartuchera",
+            "cuaderno",
+            "lapicera",
+            "resaltador",
+        ],
+
+        "ropa": [
+            "remera",
+            "pantalon",
+            "pollera",
+            "musculosa",
+            "buzo",
+        ]
+}
+
+#para que el juego siga continuando despues de adivinar la palabra
+while True:
+    guessed = []
+    attempts = 6
+    puntaje = 6
+
+    print("¡Bienvenido al Ahorcado!")
+    print()
+
+    print ("Categorias disponibles: ")
+    for cat in categorias.keys():
+        print (f"{cat}")
+    eleccion = input ("Escriba la categoria o escriba 'salir': ")
+
+    #el while mantiene el juego hasta que el jugador presione 'salir'
+    if (eleccion == 'salir'):
+        break
+
+    #verificamos si todavia hay palabras en la categoria elegida
+    if len(categorias[eleccion]) > 0:
+        word = random.sample(categorias[eleccion], 1)[0]
+        categorias[eleccion].remove(word)
+    else:
+        print(f"La categoria {eleccion} no tiene mas palabras. Elija otra categoria")
+        continue
+
+    while attempts > 0:
+        # Mostrar progreso: letras adivinadas y guiones para las que faltan
+        progress = ""
+        for letter in word:
+            if letter in guessed:
+                progress += letter + " "
+            else:
+                progress += "_ "
+        print(progress)
+        # Verificar si el jugador ya adivinó la palabra completa
+        if "_" not in progress:
+            print("¡Ganaste!")
+            print (f"Puntaje: {puntaje}")
+            break
+        
+        print(f"Intentos restantes: {attempts}")
+        print(f"Letras usadas: {', '.join(guessed)}")
+        
+        letter = input("Ingresá una letra: ")
+
+        if (len(letter) != 1) or not (letter>= 'a' and letter<= 'z'):
+            print("Entrada no valida")
+            continue
+
+        if letter in guessed:
+            print("Ya usaste esa letra.")
+        elif letter in word:
+            guessed.append(letter)
+            print("¡Bien! Esa letra está en la palabra.")
+        else:
+            guessed.append(letter)
+            attempts -= 1
+            puntaje -= 1
+            print("Esa letra no está en la palabra.")
+        
+        print()
+
+    else:
+        print(f"¡Perdiste! La palabra era: {word}")
+        print ("Su puntaje es 0")
