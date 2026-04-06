@@ -2,7 +2,7 @@
     - Instalar Python 3.10 o superior.
     - Contar con VS Code y la extensión de Jupyter instalada.
 
-# Directorio:
+# Repositorio:
 - Competencia de cocina
     - `src`: Contiene: `datosCocineros.py`
     - `notebooks`: Contiene: `CompetenciaDeCocina.ipynb`
